@@ -28,6 +28,18 @@ module RXib
       define_singleton_method(name) { @elements[name] }
     end
 
+    def color(key: nil, value: nil)
+      element = Element.new(name: 'color')
+
+      element.attribute(:key, default: RXib.camelize(key))
+      element.attribute(:color_space, default: 'calibratedRGB')
+      ColorHelpers.parse_to_attributes(element, value)
+      children << element
+
+      @elements[key] = element
+      define_singleton_method(key) { @elements[key] }
+    end
+
     private
 
     def method_missing(name, *args, &block)
