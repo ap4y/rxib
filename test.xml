@@ -1,5 +1,6 @@
 <document version="3.0">
-  <view tag="2" userInteractionEnabled="NO" hidden="YES" clipsSubviews="YES">
+  <view tag="2" userInteractionEnabled="NO" hidden="NO" clipsSubviews="YES"
+        backgroundColor="#A7D8FF" tintColor="#A7D8B5">
     <view></view>
   </view>
 </document>

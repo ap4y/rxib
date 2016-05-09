@@ -15,6 +15,9 @@ module RXib
 
       define_singleton_method(name) { @attrs[name].value }
       define_singleton_method("#{name}=") { |value| @attrs[name].value = value }
+      singleton_class.class_eval do
+        alias_method("#{RXib.camelize(name)}=", "#{name}=")
+      end
     end
 
     def element(name, root: false, &block)
@@ -40,10 +43,13 @@ module RXib
       define_singleton_method(key) { @elements[key] }
     end
 
-    private
+    def mapped_attribute(name, &block)
+      return unless block_given?
 
-    def method_missing(name, *args, &block)
-      attribute(name.to_s.sub('=', ''), default: args[0]) if name =~ /=/
+      define_singleton_method("#{name}=") { |value| yield(value) }
+      singleton_class.class_eval do
+        alias_method("#{RXib.camelize(name)}=", "#{name}=")
+      end
     end
   end
 end

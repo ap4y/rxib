@@ -1,27 +1,18 @@
 RXib.define(:view) do
-  attribute :content_mode, default: 'scaleToFill'
   attribute :id, default: RXib.generate_id
+  attribute :content_mode, default: 'scaleToFill'
+  attribute :tag
+  attribute :user_interaction_enabled
+  attribute :hidden
+  attribute :clips_subviews
 
-  # element :rect do
-  #   attribute :key, default: 'frame'
-  #   attribute :x, default: '0.0'
-  #   attribute :y, default: '0.0'
-  #   attribute :width, default: '600'
-  #   attribute :height, default: '600'
-  # end
+  mapped_attribute :background_color do |value|
+    color key: :background_color, value: value
+  end
 
-  # element :autoresizing_mask do
-  #   attribute :key, default: 'autoresizingMask'
-  #   attribute :flexibleMaxX, default: 'YES'
-  #   attribute :flexibleMaxY, default: 'YES'
-  # end
-
-  # element :color do
-  #   attribute :key, default: 'backgroundColor'
-  #   attribute :white, default: '1'
-  #   attribute :alpha, default: '1'
-  #   attribute :color_space, default: 'calibratedWhite'
-  # end
+  mapped_attribute :tint_color do |value|
+    color key: :tint_color, value: value
+  end
 
   element :subviews, root: true do
   end
