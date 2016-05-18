@@ -5,8 +5,16 @@ module RXib
     @elements
   end
 
-  def self.define(name, &block)
-    @elements[name] = block
+  def self.define(name, extends: nil, &block)
+    if extends
+      parent = @elements[extends]
+      @elements[name] = proc do
+        instance_eval(&parent)
+        instance_eval(&block)
+      end
+    else
+      @elements[name] = block
+    end
   end
 
   def self.instantiate(name)
