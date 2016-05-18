@@ -33,10 +33,14 @@ module RXib
     end
 
     def color(key: nil, value: nil)
-      element = Element.new(name: 'color')
+      if (element = @elements[key])
+        ColorHelpers.update_attributes(element, value)
+        return
+      end
 
-      element.attribute(:key, default: RXib.camelize(key))
-      element.attribute(:color_space, default: 'calibratedRGB')
+      element = Element.new(name: 'color')
+      element.property(:key, default: RXib.camelize(key))
+      element.property(:color_space, default: 'calibratedRGB')
       ColorHelpers.parse_to_attributes(element, value)
       children << element
 
@@ -44,10 +48,12 @@ module RXib
       define_singleton_method(key) { @elements[key] }
     end
 
-    def mapped_attribute(name, &block)
+    def mapped_property(name, &block)
       return unless block_given?
 
-      define_singleton_method("#{name}=") { |value| yield(value) }
+      define_singleton_method("#{name}=") do |value|
+        yield(value)
+      end
       singleton_class.class_eval do
         alias_method("#{RXib.camelize(name)}=", "#{name}=")
       end

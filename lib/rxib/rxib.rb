@@ -24,7 +24,7 @@ module RXib
   end
 
   def self.camelize(term)
-    return term unless term =~ /_/
+    return term.to_s unless term =~ /_/
     terms = term.to_s.split('_')
     terms[1..-1].each(&:capitalize!)
     terms.join
