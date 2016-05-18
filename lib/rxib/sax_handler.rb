@@ -16,6 +16,11 @@ module RXib
       @stack << el
     end
 
+    def on_text(text)
+      element = @stack.last
+      element.text = text if element.respond_to?('text=')
+    end
+
     def after_element(namespace, name)
       @stack.pop
     end
