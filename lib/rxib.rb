@@ -8,3 +8,4 @@ require './lib/rxib/sax_handler'
 
 require './lib/rxib/elements/document'
 require './lib/rxib/elements/view'
+require './lib/rxib/elements/label'
