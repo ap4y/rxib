@@ -8,8 +8,9 @@ module RXib
       @elements = {}
     end
 
-    def attribute(name, default: nil)
-      attr = Attribute.new(name: RXib.camelize(name), value: default)
+    def property(name, default: nil)
+      attr = Attribute.new(name: RXib.camelize(name))
+      attr.value = default if default
       @attrs[name] = attr
       add_attribute(attr)
 
