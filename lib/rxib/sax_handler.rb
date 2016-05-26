@@ -9,16 +9,16 @@ module RXib
 
     def on_element(namespace, name, attrs = {})
       el = RXib.instantiate(name.to_sym)
-      attrs.each { |key, value| el.public_send("#{key}=", value) }
-
       parent = (@stack.last && @stack.last.root_element) || @document
       parent.children << el
       @stack << el
+
+      attrs.each { |key, value| el.public_send("#{key}=", value) }
     end
 
     def on_text(text)
       element = @stack.last
-      element.text = text if element.respond_to?('text=')
+      element.text = text.strip if element.respond_to?('text=')
     end
 
     def after_element(namespace, name)

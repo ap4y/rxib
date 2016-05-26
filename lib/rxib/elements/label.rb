@@ -12,15 +12,35 @@ RXib.define(:label) do
   property :adjusts_font_size_to_fit, default: 'NO'
   property :translates_autoresizing_mask_into_constraints, default: 'NO'
   property :text
+  property :item_id
 
   mapped_property :text_color do |value|
     color key: :text_color, value: value
+  end
+
+  mapped_property :horizontal_layout do |value|
+    constraint :horizontal, value: value, on: :parent
+  end
+
+  mapped_property :vertical_layout do |value|
+    constraint :vertical, value: value, on: :parent
+  end
+
+  mapped_property :width do |value|
+    constraint :width, value: value, on: :self
+  end
+
+  mapped_property :height do |value|
+    constraint :height, value: value, on: :self
   end
 
   element :font_description do
     property :key, default: 'fontDescription'
     property :type, default: 'system'
     property :point_size, default: '17'
+  end
+
+  element :constraints do
   end
 
   self.text_color = 'black'

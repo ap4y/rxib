@@ -58,5 +58,25 @@ module RXib
         alias_method("#{RXib.camelize(name)}=", "#{name}=")
       end
     end
+
+    def constraint(name, value: nil, on: :self)
+      constraint = Constraint.new(name, value, self)
+      @elements[name] = constraint
+      define_singleton_method(name) { @elements[key] }
+
+      if on == :self
+        constraints.children << constraint
+      else
+        parent_element.constraints.children << constraint
+      end
+    end
+
+    def parent_element
+      if parent.name == 'subviews'
+        parent.parent
+      else
+        parent
+      end
+    end
   end
 end

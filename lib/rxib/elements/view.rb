@@ -5,6 +5,7 @@ RXib.define(:view) do
   # property :user_interaction_enabled
   # property :hidden
   # property :clips_subviews
+  property :item_id
 
   mapped_property :background_color do |value|
     color key: :background_color, value: value
@@ -21,6 +22,9 @@ RXib.define(:view) do
   end
 
   element :subviews, root: true do
+  end
+
+  element :constraints do
   end
 
   self.background_color = 'white'
