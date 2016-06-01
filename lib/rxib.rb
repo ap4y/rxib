@@ -4,7 +4,7 @@ require './lib/rxib/rxib'
 require './lib/rxib/color_helpers'
 require './lib/rxib/document'
 require './lib/rxib/element'
-require './lib/rxib/constraint'
+require './lib/rxib/constraint/constraint'
 require './lib/rxib/sax_handler'
 
 require './lib/rxib/elements/document'
