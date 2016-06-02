@@ -1,6 +1,19 @@
-<document version="3.0">
-  <view tag="2" userInteractionEnabled="NO" hidden="NO" clipsSubviews="YES"
-        backgroundColor="#A7D8FF" tintColor="#A7D8B5">
-    <view></view>
+<document>
+  <view>
+    <label itemId="fooLabel" horizontalLayout="|-20" verticalLayout="|-20" width="100" height="50">
+      Top Left
+    </label>
+
+    <label horizontalLayout="fooLabel-20" verticalLayout="fooLabel-20">
+      Aligned Under
+    </label>
+
+    <label itemId="barLabel" horizontalLayout="20-|" verticalLayout="20-|">
+      Bottom Right
+    </label>
+
+    <label horizontalLayout="20-barLabel" verticalLayout="20-barLabel">
+      Aligned Upon
+    </label>
   </view>
 </document>
