@@ -19,5 +19,9 @@
     <label horizontalLayout="|-100-@-400-|" verticalLayout="|-200-@-300-|">
       Double constraint
     </label>
+
+    <label centerX="|" centerY="|">
+      Centered
+    </label>
   </view>
 </document>

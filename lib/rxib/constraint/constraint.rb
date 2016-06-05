@@ -1,16 +1,19 @@
 require './lib/rxib/constraint/constant'
+require './lib/rxib/constraint/relative'
 require './lib/rxib/constraint/align'
 require './lib/rxib/constraint/element'
 
 module RXib
   module Constraint
-    def self.constraints_from(value, element)
+    def self.constraints_for(type, value, element)
       value.split('-@-').map do |constraint|
         components = constraint.split('-')
-        klass = case components.count
-                when 1 then Constant
-                when 2 then Align
-                else fail "Invalid constraint #{value}"
+        klass = if type =~ /center/
+                  Relative
+                elsif components.count == 1
+                  Constant
+                elsif components.count == 2
+                  Align
                 end
 
         klass.new(element, components)

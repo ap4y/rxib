@@ -20,6 +20,22 @@ module RXib
         property(:constant, default: @constraint.constant)
       end
 
+      def centerX
+        property(:first_attribute, default: 'centerX')
+        property(:second_attribute, default: 'centerX')
+        property(:first_item, default: @constraint.first_item)
+        property(:second_item, default: @constraint.second_item)
+        property(:constant, default: @constraint.constant)
+      end
+
+      def centerY
+        property(:first_attribute, default: 'centerY')
+        property(:second_attribute, default: 'centerY')
+        property(:first_item, default: @constraint.first_item)
+        property(:second_item, default: @constraint.second_item)
+        property(:constant, default: @constraint.constant)
+      end
+
       def horizontal
         property(:constant, default: @constraint.constant)
 

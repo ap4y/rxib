@@ -60,7 +60,7 @@ module RXib
     end
 
     def constraint(name, value: nil, on: :self)
-      Constraint.constraints_from(value, self).each do |constraint|
+      Constraint.constraints_for(name, value, self).each do |constraint|
         element = Constraint::Element.new(name, constraint)
         @elements[name] = element
         define_singleton_method(name) { @elements[key] }

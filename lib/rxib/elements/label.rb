@@ -34,6 +34,14 @@ RXib.define(:label) do
     constraint :height, value: value, on: :self
   end
 
+  mapped_property :centerX do |value|
+    constraint :centerX, value: value, on: :parent
+  end
+
+  mapped_property :centerY do |value|
+    constraint :centerY, value: value, on: :parent
+  end
+
   element :font_description do
     property :key, default: 'fontDescription'
     property :type, default: 'system'
