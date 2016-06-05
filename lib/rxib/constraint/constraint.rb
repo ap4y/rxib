@@ -4,16 +4,17 @@ require './lib/rxib/constraint/element'
 
 module RXib
   module Constraint
-    def self.constraint_from(value, element)
-      components = value.split('-')
+    def self.constraints_from(value, element)
+      value.split('-@-').map do |constraint|
+        components = constraint.split('-')
+        klass = case components.count
+                when 1 then Constant
+                when 2 then Align
+                else fail "Invalid constraint #{value}"
+                end
 
-      klass = case components.count
-              when 1 then Constant
-              when 2 then Align
-              else fail "Invalid constraint #{value}"
-              end
-
-      klass.new(element, components)
+        klass.new(element, components)
+      end
     end
 
     def self.lookup_item(item, element)

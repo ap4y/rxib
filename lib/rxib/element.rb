@@ -60,15 +60,16 @@ module RXib
     end
 
     def constraint(name, value: nil, on: :self)
-      constraint = Constraint.constraint_from(value, self)
-      element = Constraint::Element.new(name, constraint)
-      @elements[name] = element
-      define_singleton_method(name) { @elements[key] }
+      Constraint.constraints_from(value, self).each do |constraint|
+        element = Constraint::Element.new(name, constraint)
+        @elements[name] = element
+        define_singleton_method(name) { @elements[key] }
 
-      if on == :self
-        constraints.children << element
-      else
-        parent_element.constraints.children << element
+        if on == :self
+          constraints.children << element
+        else
+          parent_element.constraints.children << element
+        end
       end
     end
 

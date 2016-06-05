@@ -15,5 +15,9 @@
     <label horizontalLayout="20-barLabel" verticalLayout="20-barLabel">
       Aligned Upon
     </label>
+
+    <label horizontalLayout="|-100-@-400-|" verticalLayout="|-200-@-300-|">
+      Double constraint
+    </label>
   </view>
 </document>
