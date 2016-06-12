@@ -29,7 +29,7 @@ module RXib
       end
 
       if element.self_closing?
-        line("<#{element.name}#{attrs}/>", level)
+        line("<#{element.name}#{attrs}/>", level) if attrs.length > 0
       else
         line("<#{element.name}#{attrs}>", level)
         element.children.each { |child| dump_element(child, level + 1) }
