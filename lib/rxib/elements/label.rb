@@ -1,55 +1,41 @@
-RXib.define(:label) do
-  property :id, default: RXib.generate_id
-  property :content_mode, default: 'left'
-  property :opaque, default: 'NO'
-  property :user_interaction_enabled, default: 'NO'
-  property :horizontal_hugging_priority, default: '251'
-  property :vertical_hugging_priority, default: '251'
-  property :fixed_frame, default: 'YES'
-  property :text_alignment, default: 'natural'
-  property :line_break_mode, default: 'tailTruncation'
-  property :baseline_adjustment, default: 'alignBaselines'
-  property :adjusts_font_size_to_fit, default: 'NO'
-  property :translates_autoresizing_mask_into_constraints, default: 'NO'
+RXib.define(:label, extends: :base_element) do
   property :text
-  property :item_id
+  property :text_alignment, default: 'natural'
+  property :number_of_lines
+  property :enabled
+  property :highlighted
+  property :baseline_adjustment, default: 'alignBaselines'
+  property :line_break_mode, default: 'tailTruncation'
+  property :adjusts_font_size_to_fit, default: 'NO'
+
+  property :fixed_frame, default: 'YES'
 
   mapped_property :text_color do |value|
     color key: :text_color, value: value
   end
 
-  mapped_property :horizontal_layout do |value|
-    constraint :horizontal, value: value, on: :parent
+  mapped_property :highlighted_color do |value|
+    color key: :highlighted_color, value: value
   end
 
-  mapped_property :vertical_layout do |value|
-    constraint :vertical, value: value, on: :parent
+  mapped_property :font do |value|
+    font_description :value
   end
 
-  mapped_property :width do |value|
-    constraint :width, value: value, on: :self
-  end
+  # element :font_description do
+  #   property :key, default: 'fontDescription'
+  #   property :type, default: 'system'
+  #   property :weight
+  #   property :point_size, default: '17'
+  # end
 
-  mapped_property :height do |value|
-    constraint :height, value: value, on: :self
-  end
-
-  mapped_property :centerX do |value|
-    constraint :centerX, value: value, on: :parent
-  end
-
-  mapped_property :centerY do |value|
-    constraint :centerY, value: value, on: :parent
-  end
-
-  element :font_description do
-    property :key, default: 'fontDescription'
-    property :type, default: 'system'
-    property :point_size, default: '17'
-  end
-
-  element :constraints do
-  end
+  self.opaque = 'NO'
+  self.user_interaction_enabled = 'NO'
+  self.content_mode = 'left'
+  self.horizontal_hugging_priority = '251'
+  self.vertical_hugging_priority = '251'
+  self.translates_autoresizing_mask_into_constraints = 'NO'
 
   self.text_color = 'black'
+  self.font = 'System 17.0'
 end
