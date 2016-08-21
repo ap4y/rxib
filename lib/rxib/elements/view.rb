@@ -1,9 +1,15 @@
-RXib.define(:view, extends: :base_element) do
-  # element :autoresizing_mask do
-  #   property :key, default: 'autoresizingMask'
-  #   property :flexibleMaxX, default: 'YES'
-  #   property :flexibleMaxY, default: 'YES'
-  # end
+module RXib
+  module Elements
+    class View < Base
+      blueprint('view') do
+        element 'autoresizingMask' do
+          attribute 'key', value: 'autoresizingMask'
+          attribute 'flexibleMaxX', value: 'YES'
+          attribute 'flexibleMaxY', value: 'YES'
+        end
 
-  self.background_color = 'white'
+        set_attribute('backgroundColor', 'white')
+      end
+    end
+  end
 end

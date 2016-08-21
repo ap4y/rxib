@@ -1,57 +1,48 @@
-RXib.define(:base_element) do
-  property :id, default: RXib.generate_id
-  property :item_id
+module RXib
+  module Elements
+    class Base < Oga::XML::Element
+      include RXib::DSL
+      include RXib::Constraint::DSL
 
-  property :content_mode, default: 'scaleToFill'
-  property :tag
+      blueprint do
+        attribute 'id', value: ->{ RXib.generate_id }
+        attribute 'itemId'
 
-  property :user_interaction_enabled
+        root_element 'subviews' do
+        end
 
-  property :alpha
+        attribute 'contentMode', value: 'scaleToFill'
+        attribute 'tag'
 
-  mapped_property :background_color do |value|
-    color key: :background_color, value: value
-  end
+        attribute 'userInteractionEnabled'
 
-  mapped_property :tint_color do |value|
-    color key: :tint_color, value: value
-  end
+        attribute 'alpha'
 
-  property :opaque
-  property :hidden
-  property :clips_subviews
+        mapped_attribute 'backgroundColor' do
+          color 'backgroundColor'
+        end
 
-  property :translates_autoresizing_mask_into_constraints
-  property :horizontal_hugging_priority
-  property :vertical_hugging_priority
+        mapped_attribute 'tintColor' do
+          color 'tintColor'
+        end
 
-  mapped_property :horizontal_layout do |value|
-    constraint :horizontal, value: value, on: :parent
-  end
+        attribute 'opaque'
+        attribute 'hidden'
+        attribute 'clipsSubviews'
 
-  mapped_property :vertical_layout do |value|
-    constraint :vertical, value: value, on: :parent
-  end
+        attribute 'translatesAutoresizingMaskIntoConstraints'
+        attribute 'horizontalHuggingPriority'
+        attribute 'verticalHuggingPriority'
 
-  mapped_property :width do |value|
-    constraint :width, value: value, on: :self
-  end
+        constraint 'horizontalLayout', on: :parent
+        constraint 'verticalLayout', on: :parent
 
-  mapped_property :height do |value|
-    constraint :height, value: value, on: :self
-  end
+        constraint 'width', on: :self
+        constraint 'height', on: :self
 
-  mapped_property :centerX do |value|
-    constraint :centerX, value: value, on: :parent
-  end
-
-  mapped_property :centerY do |value|
-    constraint :centerY, value: value, on: :parent
-  end
-
-  element :subviews, root: true do
-  end
-
-  element :constraints do
+        constraint 'centerX', on: :parent
+        constraint 'centerY', on: :parent
+      end
+    end
   end
 end

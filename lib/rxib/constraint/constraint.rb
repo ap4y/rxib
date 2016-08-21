@@ -2,13 +2,14 @@ require './lib/rxib/constraint/constant'
 require './lib/rxib/constraint/relative'
 require './lib/rxib/constraint/align'
 require './lib/rxib/constraint/element'
+require './lib/rxib/constraint/dsl'
 
 module RXib
   module Constraint
-    def self.constraints_for(type, value, element)
+    def self.constraints_for(name, value, element)
       value.split('-@-').map do |constraint|
         components = constraint.split('-')
-        klass = if type =~ /center/
+        klass = if name =~ /center/
                   Relative
                 elsif components.count == 1
                   Constant
@@ -16,19 +17,19 @@ module RXib
                   Align
                 end
 
-        klass.new(element, components)
+        klass.new(element, name, components)
       end
     end
 
     def self.lookup_item(item, element)
-      return element.parent_element.id if item == '|'
+      return element.parent_element.get('id') if item == '|'
 
       while (parent = element.parent)
         item = parent.children.find do |e|
-          e.respond_to?(:item_id) && e.item_id == item
+          e.get('itemId') == item
         end
 
-        return item.id if item
+        return item.get('id') if item
         element = parent
       end
 

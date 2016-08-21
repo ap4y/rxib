@@ -1,9 +1,11 @@
 module RXib
   module Constraint
     class Align
-      attr_reader :constant, :constant_position
+      attr_reader :name, :constant, :constant_position
 
-      def initialize(element, components)
+      def initialize(element, name, components)
+        @name = name
+
         if components[0] =~ /[A-Za-z|]/
           @constant_position = :right
           @item_id, @constant = components
@@ -12,8 +14,15 @@ module RXib
           @constant, @item_id = components
         end
 
-        @element_id = element.id
+        @element_id = element.get('id')
         @item = RXib::Constraint.lookup_item(@item_id, element)
+      end
+
+      def replacement_for?(other)
+        self.class == other.class &&
+          name == other.name &&
+          first_item == other.first_item &&
+          second_item == other.second_item
       end
 
       def first_item

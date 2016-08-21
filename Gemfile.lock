@@ -3,9 +3,11 @@ GEM
   specs:
     ansi (1.5.0)
     ast (2.2.0)
+    byebug (9.0.5)
     coderay (1.1.1)
     color_conversion (0.1.0)
     method_source (0.8.2)
+    minitest (5.9.0)
     oga (2.2)
       ast
       ruby-ll (~> 2.1)
@@ -22,7 +24,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   color_conversion
+  minitest (~> 5.9)
   oga
   pry
 

@@ -9,15 +9,15 @@ module RXib
     end
 
     def format
-      attrs = [:version, :encoding, :standalone].map do |getter|
-        value = @document.xml_declaration.public_send(getter)
-        attribute(getter, value)
+      if @document.xml_declaration
+        attrs = [:version, :encoding, :standalone].map do |getter|
+          value = @document.xml_declaration.public_send(getter)
+          attribute(getter, value)
+        end
+        line("<?xml #{attrs.compact.join(' ')}?>")
       end
-      line("<?xml #{attrs.compact.join(' ')}?>")
 
-      @document.children.each do |element|
-        dump_element(element)
-      end
+      @document.children.each { |element| dump_element(element) }
     end
 
     private

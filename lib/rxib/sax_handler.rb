@@ -3,22 +3,29 @@ module RXib
     attr_reader :document
 
     def initialize
-      @document = Document.new
+      @document = Oga::XML::Document.new
+      @document.xml_declaration =
+        Oga::XML::XmlDeclaration
+          .new(version: '1.0', encoding: 'UTF-8', standalone: 'no')
       @stack = []
     end
 
     def on_element(namespace, name, attrs = {})
-      el = RXib.instantiate(name.to_sym)
-      parent = (@stack.last && @stack.last.root_element) || @document
+      klass = Object.const_get('RXib::Elements::' + name.capitalize)
+      el = klass.new
+      el.synthesize
+
+      parent = (@stack.last && @stack.last.root) || @document
       parent.children << el
       @stack << el
 
-      attrs.each { |key, value| el.public_send("#{key}=", value) }
+      attrs.each { |key, value| el.set(key, value) }
     end
 
     def on_text(text)
       element = @stack.last
-      element.text = text.strip if element.respond_to?('text=')
+      txt = text.strip
+      element.set('text', txt) if element && txt.length > 0
     end
 
     def after_element(namespace, name)
